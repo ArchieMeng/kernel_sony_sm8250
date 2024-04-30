@@ -1,0 +1,26 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ "droidian" ]
+  pull_request:
+    branches: [ "droidian" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Make output dir
+      run: mkdir -pv /tmp/results
+    - name: Build packages in the container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/sources -v /tmp/results:/results \
+        quay.io/droidian/build-essential:trixie-amd64 /bin/bash -c '''
+        apt-get install linux-packaging-snippets
+        cd /sources
+        RELENG_HOST_ARCH="arm64" releng-build-package
+        '''
