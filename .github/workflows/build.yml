@@ -23,7 +23,7 @@ jobs:
         apt-get install linux-packaging-snippets
         cd /sources
         RELENG_HOST_ARCH="arm64" releng-build-package
-        mv -v ../*.deb /results
+        mv -v ../*.deb ../*.buildinfo ../*.changes /results
         '''
     - uses: actions/upload-artifact@v4
       with:
