@@ -19,7 +19,7 @@ jobs:
       run: |
         docker run \
         -v ${{ github.workspace }}:/sources -v /tmp/results:/results \
-        quay.io/droidian/build-essential:trixie-amd64 /bin/bash -c '''
+        quay.io/droidian/build-essential:current-amd64 /bin/bash -c '''
         apt-get install linux-packaging-snippets
         cd /sources
         RELENG_HOST_ARCH="arm64" releng-build-package
