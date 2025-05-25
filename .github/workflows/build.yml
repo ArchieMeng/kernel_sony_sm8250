@@ -9,7 +9,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -31,16 +31,22 @@ jobs:
     - name: Build packages in the container
       run: |
         docker run \
-        -v ${{ github.workspace }}:/sources -v /tmp/results:/results \
-        quay.io/droidian/build-essential:current-amd64 /bin/bash -c '''
-        apt-get install linux-packaging-snippets
-        cd /sources
+        -v ${{ github.workspace }}:/build/sources -v /tmp/results:/build \
+        quay.io/droidian/build-essential:next-amd64 /bin/bash -c '''
+        cd /build/sources
         RELENG_HOST_ARCH="arm64" releng-build-package
-        mv -v ../*.deb ../*.buildinfo ../*.changes /results
         '''
     - uses: actions/upload-artifact@v4
       with:
         path: /tmp/results
+    - name: Get version
+      run: echo "version=$(head -n1 debian/changelog | cut -d '(' -f2 | cut -d ')' -f1 | sed 's/+/-/g')" >> $GITHUB_ENV
+    - name: Create latest release
+      uses: softprops/action-gh-release@v2.2.2
+      with:
+        files: /tmp/results/*
+        tag_name: ${{ env.version }}
+        draft: false
     - name: Generate files for Github Page of this repo
       run: |
         cd /tmp/results
