@@ -50,6 +50,8 @@ jobs:
     - name: Generate files for Github Page of this repo
       run: |
         cd /tmp/results
+        sudo chown -R $(whoami) .
+        rmdir sources
         ls -1 > files
 
         # Generate index.html
