@@ -17,7 +17,7 @@ jobs:
     - uses: archiemeng/rebase-upstream-action@master
       with:
         upstream: LineageOS/android_kernel_sony_sm8250
-        branch: lineage-22.2
+        branch: lineage-23.0
         depth: 0
     - name: Get current hash
       id: get-current-hash
