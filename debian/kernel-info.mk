@@ -40,7 +40,7 @@ KERNEL_CONFIG_USE_DIFFCONFIG = 0
 #KERNEL_PRODUCT_DIFFCONFIG = $(DEVICE_MODEL)_diffconfig
 
 # Defconfig to use
-KERNEL_DEFCONFIG = pdx206_defconfig
+KERNEL_DEFCONFIG = vendor/kona-perf_defconfig
 
 # Whether to include DTBs with the image. Use 0 (no) or 1.
 KERNEL_IMAGE_WITH_DTB = 1
