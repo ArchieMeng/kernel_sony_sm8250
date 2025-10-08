@@ -35,6 +35,8 @@ KERNEL_CONFIG_USE_FRAGMENTS = 1
 # If unsure, keep this to 0.
 KERNEL_CONFIG_USE_DIFFCONFIG = 0
 
+KERNEL_CONFIG_EXTRA_FRAGMENTS=extra.config
+
 # The diffconfig to apply. Only used when KERNEL_CONFIG_USE_DIFFCONFIG is
 # enabled.
 #KERNEL_PRODUCT_DIFFCONFIG = $(DEVICE_MODEL)_diffconfig
